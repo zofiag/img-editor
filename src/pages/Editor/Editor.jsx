@@ -12,6 +12,7 @@ const Editor = () => {
   const [bgImagePath, setBgImagePath] = useState(defaultBgImagePath);
   const [bgImage, setBgImage] = useState();
   const [imgText, setImgText] = useState();
+  const [imgTextFontFamily, setImgTextFontFamily] = useState("Arial");
   const stageRef = useRef();
   const rectSize = 400;
 
@@ -53,14 +54,19 @@ const Editor = () => {
               fillPatternRepeat="no-repeat"
             />
 
-            {imgText && <Text draggable text={imgText} fontSize={20} padding={12} />}
+            {!imgText ? null : <Text draggable text={imgText} fontSize={20} fontFamily={imgTextFontFamily} padding={12} />}
           </Layer>
         </Stage>
 
         <button onClick={handleDownloadAsImage}>Download as image</button>
       </FlexBox>
 
-      <TextSelector text={imgText} onAdd={setImgText} />
+      <TextSelector
+        text={imgText}
+        textFontFamily={imgTextFontFamily}
+        onAdd={setImgText}
+        onFontFamilyChange={setImgTextFontFamily}
+      />
     </FlexBox>
   );
 };
