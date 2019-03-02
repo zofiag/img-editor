@@ -1,0 +1,14 @@
+.bg-selector-item {
+  min-width: 200px;
+  max-width: 200px;
+
+  min-height: 200px;
+  max-height: 200px;
+
+  display: inline-block;
+  flex: 0 0 auto;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; 
+}

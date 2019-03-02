@@ -4,10 +4,11 @@ import { Stage, Layer } from "react-konva";
 
 import { FlexBox } from "components";
 
-import defaultBgImagePath from "../../static/images/empty_background.bmp";
+import defaultBgImagePath from "static/images/empty_background.bmp";
 import EditorRect from "./components/EditorRect";
+import BgSelector from "./components/BgSelector";
 
-const Editor = ({ width, height, fillPatternImage, ...rest }) => {
+const Editor = () => {
   const [bgImagePath, setBgImagePath] = useState(defaultBgImagePath);
   const [bgImage, setBgImage] = useState();
   const rectSize = 400;
@@ -18,23 +19,30 @@ const Editor = ({ width, height, fillPatternImage, ...rest }) => {
       setBgImage(imageObj);
     };
     imageObj.src = bgImagePath;
-  }, bgImagePath);
+  }, [bgImagePath]);
+
+  const handleSetBgImagePath = (_bgPath) => {
+    const bgPath = _bgPath || defaultBgImagePath;
+    setBgImagePath(bgPath);
+  };
 
   return (
     <FlexBox>
+      <BgSelector onChange={handleSetBgImagePath} />
       <Stage width={rectSize} height={rectSize}>
         <Layer>
-          <EditorRect width={rectSize} height={rectSize} fillPatternImage={bgImage} />
+          <EditorRect
+            width={rectSize}
+            height={rectSize}
+            fillPatternImage={bgImage}
+            fillPatternScaleX={!bgImage ? 1 : 1 / (bgImage.width / rectSize)}
+            fillPatternScaleY={!bgImage ? 1 : 1 / (bgImage.height / rectSize)}
+            fillPatternRepeat="no-repeat"
+        />
         </Layer>
       </Stage>
     </FlexBox>
   );
-};
-
-Editor.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  fillPatternImage: PropTypes.object,
 };
 
 export default Editor;
