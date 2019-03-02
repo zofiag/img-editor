@@ -2,15 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Stage, Layer } from "react-konva";
 
-import { FlexBox } from "components";
+import { FlexBox, Rect, Text } from "components";
 
 import defaultBgImagePath from "static/images/empty_background.bmp";
-import EditorRect from "./components/EditorRect";
 import BgSelector from "./components/BgSelector";
+import TextSelector from "./components/TextSelector";
 
 const Editor = () => {
   const [bgImagePath, setBgImagePath] = useState(defaultBgImagePath);
   const [bgImage, setBgImage] = useState();
+  const [imgText, setImgText] = useState();
   const stageRef = useRef();
   const rectSize = 400;
 
@@ -43,7 +44,7 @@ const Editor = () => {
       <FlexBox column>
         <Stage width={rectSize} height={rectSize} ref={stageRef}>
           <Layer>
-            <EditorRect
+            <Rect
               width={rectSize}
               height={rectSize}
               fillPatternImage={bgImage}
@@ -51,11 +52,15 @@ const Editor = () => {
               fillPatternScaleY={!bgImage ? 1 : 1 / (bgImage.height / rectSize)}
               fillPatternRepeat="no-repeat"
             />
+
+            {imgText && <Text draggable text={imgText} fontSize={20} padding={12} />}
           </Layer>
         </Stage>
 
         <button onClick={handleDownloadAsImage}>Download as image</button>
       </FlexBox>
+
+      <TextSelector text={imgText} onAdd={setImgText} />
     </FlexBox>
   );
 };
