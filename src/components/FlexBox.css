@@ -1,0 +1,28 @@
+.flex-box {
+  display: flex;
+}
+
+.flex-box-row {
+  flex-direction: row;
+}
+
+.flex-box-column {
+  flex-direction: column;
+  min-height: 0;
+}
+
+.flex-box-row.flex-box-hcentered {
+  justify-content: center;
+}
+
+.flex-box-column.flex-box-hcentered {
+  align-items: center;
+}
+
+.flex-box-row.flex-box-vcentered {
+  align-items: center;
+}
+
+.flex-box-column.flex-box-vcentered {
+  justify-content: center;
+}
