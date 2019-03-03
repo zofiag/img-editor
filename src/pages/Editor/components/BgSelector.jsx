@@ -1,26 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import { FlexBox } from "components";
+import classNames from "classnames";
 
 import kirbyBg from "static/images/kirby.jpg";
 import "./BgSelector.css";
 
 const bgImgPaths = [kirbyBg];
 
-const BgSelectorItem = ({ bgPath, onClick }) => (
+const BgSelectorItem = ({ bgPath, onClick, style, className, ...rest }) => (
   <button
-    className={"bg-selector-item"}
+    className={classNames("bg-selector-item", className)}
+    style={{ backgroundImage: `url(${bgPath})`, ...style }}
     onClick={() => onClick(bgPath)}
-    style={{ backgroundImage: `url(${bgPath})` }}
+    {...rest}
   />
 );
 
-const BgSelector = ({ onChange }) => (
-  <FlexBox column>
-    {bgImgPaths.map(bgPath => <BgSelectorItem key={bgPath} bgPath={bgPath} onClick={onChange} />)}
-    <button onClick={() => onChange(null)}>Delete background</button>
-  </FlexBox>
+BgSelectorItem.propTypes = {
+  bgPath: PropTypes.string,
+  style: PropTypes.object,
+  className: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+
+const BgSelector = ({ onChange, ...rest }) => (
+  bgImgPaths.map(bgPath => <BgSelectorItem key={bgPath} bgPath={bgPath} onClick={onChange} {...rest} />)
 );
 
 BgSelector.propTypes = {

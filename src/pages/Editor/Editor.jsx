@@ -23,11 +23,6 @@ const Editor = () => {
     imageObj.src = bgImagePath;
   }, [bgImagePath]);
 
-  const handleSetBgImagePath = (_bgPath) => {
-    const bgPath = _bgPath || defaultBgImagePath;
-    setBgImagePath(bgPath);
-  };
-
   const handleDownloadAsImage = () => {
     const href = stageRef.current.getStage().toDataURL();
     const link = document.createElement('a');
@@ -39,7 +34,14 @@ const Editor = () => {
 
   return (
     <FlexBox>
-      <BgSelector onChange={handleSetBgImagePath} />
+      <FlexBox column>
+        <BgSelector onChange={setBgImagePath} />
+        <button
+          disabled={bgImagePath === defaultBgImagePath}
+          onClick={() => setBgImagePath(defaultBgImagePath)}>
+            Delete background
+        </button>
+      </FlexBox>
 
       <FlexBox column>
         <Stage width={rectSize} height={rectSize} ref={stageRef}>
