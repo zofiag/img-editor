@@ -1,9 +1,9 @@
 .bg-selector-item {
-  min-width: 200px;
-  max-width: 200px;
+  min-width: 130px;
+  max-width: 130px;
 
-  min-height: 200px;
-  max-height: 200px;
+  min-height: 130px;
+  max-height: 130px;
 
   display: inline-block;
   flex: 0 0 auto;
@@ -11,4 +11,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; 
+}
+
+.bg-selector-item + .bg-selector-item {
+  margin-top: 8px;
 }

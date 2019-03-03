@@ -43,7 +43,7 @@ const Editor = () => {
 
   return (
     <FlexBox className="editor">
-      <FlexBox column className="editor-column">
+      <FlexBox column hCentered className="editor-column">
         <h3 className="editor-column-title">Select background</h3>
         <BgSelector onChange={setBgImagePath} />
         <button
