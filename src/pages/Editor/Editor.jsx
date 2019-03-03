@@ -7,6 +7,8 @@ import BgSelector from "./components/BgSelector";
 import TextSelector from "./components/TextSelector";
 import ImgText from "./components/ImgText";
 
+import "./Editor.css";
+
 const Editor = () => {
   const [bgImagePath, setBgImagePath] = useState(defaultBgImagePath);
   const [bgImage, setBgImage] = useState();
@@ -33,8 +35,9 @@ const Editor = () => {
   };
 
   return (
-    <FlexBox>
-      <FlexBox column>
+    <FlexBox className="editor">
+      <FlexBox column className="editor-column">
+        <h3 className="editor-column-title">Select background</h3>
         <BgSelector onChange={setBgImagePath} />
         <button
           disabled={bgImagePath === defaultBgImagePath}
@@ -43,7 +46,8 @@ const Editor = () => {
         </button>
       </FlexBox>
 
-      <FlexBox column>
+      <FlexBox column className="editor-column">
+        <h3 className="editor-column-title">Simple editor</h3>
         <Stage width={rectSize} height={rectSize} ref={stageRef}>
           <Layer>
             <Rect
@@ -68,12 +72,15 @@ const Editor = () => {
         <button onClick={handleDownloadAsImage}>Download as image</button>
       </FlexBox>
 
-      <TextSelector
-        text={imgText}
-        textFontFamily={imgTextFontFamily}
-        onAdd={setImgText}
-        onFontFamilyChange={setImgTextFontFamily}
-      />
+      <FlexBox column className="editor-column">
+        <h3 className="editor-column-title">Add text</h3>
+        <TextSelector
+          text={imgText}
+          textFontFamily={imgTextFontFamily}
+          onAdd={setImgText}
+          onFontFamilyChange={setImgTextFontFamily}
+        />
+      </FlexBox>
     </FlexBox>
   );
 };

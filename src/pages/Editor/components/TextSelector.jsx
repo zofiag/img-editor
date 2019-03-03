@@ -6,7 +6,7 @@ import { FlexBox } from "components";
 
 // import "./.css";
 
-const TextSelector = ({ text = "", textFontFamily, onAdd, onFontFamilyChange }) => {
+const TextSelector = ({ text = "", textFontFamily, className, onAdd, onFontFamilyChange }) => {
   const [inputText, setInputText] = useState(text);
   const fontFamilies = ["Arial", "Times New Roman", "Open Sans"];
   const fontFamiliesAsync = ["Open Sans"];
@@ -24,9 +24,9 @@ const TextSelector = ({ text = "", textFontFamily, onAdd, onFontFamilyChange }) 
   }
 
   return (
-    <FlexBox column>
+    <FlexBox column className={className}>
       <label>
-        Add text
+        <span style={{ display: "none" }}>Add text</span>
         <input name="text" type="text" onChange={ev => setInputText(ev.currentTarget.value)} value={inputText} />
       </label>
 
@@ -39,7 +39,7 @@ const TextSelector = ({ text = "", textFontFamily, onAdd, onFontFamilyChange }) 
               value={fontFamily}
               checked={fontFamily === textFontFamily}
               onChange={ev => handleFontFamilyChange(ev.currentTarget.value)} />
-            {fontFamily}
+              {fontFamily}
           </label>
         ))}
       </FlexBox>
@@ -52,6 +52,7 @@ const TextSelector = ({ text = "", textFontFamily, onAdd, onFontFamilyChange }) 
 TextSelector.propTypes = {
   text: PropTypes.string,
   textFontFamily: PropTypes.string,
+  className: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
   onFontFamilyChange: PropTypes.func.isRequired,
 };

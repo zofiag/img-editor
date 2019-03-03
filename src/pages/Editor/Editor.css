@@ -1,0 +1,12 @@
+.editor {
+  justify-content: center;
+  padding: 24px 8px;
+}
+
+.editor-column {
+  margin: 0 16px;
+}
+
+.editor-column-title {
+  text-align: center;
+}
