@@ -27,7 +27,8 @@ const ImgText = ({ deleteIconProps, onTextDelete, ...rest }) => {
           text="x"
           fontSize={16}
           padding={deleteIconPadding}
-          absolutePosition={{ x: imgTextRef.current.getTextWidth() + 2* deleteIconPadding, y: -deleteIconPadding }}
+          x={imgTextRef.current.getTextWidth() + 2 * deleteIconPadding}
+          y={-deleteIconPadding}
           onClick={onTextDelete}
           {...deleteIconProps}
         />
