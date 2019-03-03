@@ -4,8 +4,6 @@ import FontFaceObserver from "fontfaceobserver";
 
 import { FlexBox } from "components";
 
-// import "./.css";
-
 const TextSelector = ({ text = "", textFontFamily, className, onAdd, onFontFamilyChange }) => {
   const [inputText, setInputText] = useState(text);
   const fontFamilies = ["Arial", "Times New Roman", "Open Sans"];
@@ -16,11 +14,17 @@ const TextSelector = ({ text = "", textFontFamily, className, onAdd, onFontFamil
     setInputText(text);
   }, [text]);
 
-  const handleFontFamilyChange = async (fontFamily) => {
-    const loaded = !fontFamiliesAsync.includes(fontFamily) || await new FontFaceObserver(fontFamily).load();
+  const handleFontFamilyChange = async (newFontFamily) => {
+    if (newFontFamily === textFontFamily) return;
+    const loaded = !fontFamiliesAsync.includes(newFontFamily) || await new FontFaceObserver(newFontFamily).load();
 
     if (!loaded) return;
-    onFontFamilyChange(fontFamily);
+    onFontFamilyChange(newFontFamily);
+  }
+
+  const handleAddText = (newText) => {
+    if (newText === text) return;
+    onAdd(newText);
   }
 
   return (
@@ -44,7 +48,9 @@ const TextSelector = ({ text = "", textFontFamily, className, onAdd, onFontFamil
         ))}
       </FlexBox>
 
-      <button onClick={() => onAdd(inputText)}>Add text</button>
+      <button onClick={() => handleAddText(inputText)}>
+        {`${!text ? "Add" : "Edit"} text`}
+      </button>
     </FlexBox>
   );
 };
