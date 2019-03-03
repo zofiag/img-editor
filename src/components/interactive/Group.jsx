@@ -2,9 +2,9 @@ import React from "react";
 import { Group as GroupKonva } from "react-konva";
 
 // https://konvajs.org/api/Konva.Group.html
-export const Group = (props) => (
-  <GroupKonva {...props} />
-);
+export const Group = React.forwardRef((props, ref) => (
+  <GroupKonva ref={ref} {...props} />
+));
 
 Group.propTypes = {
   ...GroupKonva.propTypes,

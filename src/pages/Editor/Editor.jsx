@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { Stage, Layer } from "react-konva";
 
-import { FlexBox, Rect } from "components";
+import { FlexBox, Rect, Stage, Layer } from "components";
 
 import defaultBgImagePath from "static/images/empty_background.bmp";
 import BgSelector from "./components/BgSelector";
