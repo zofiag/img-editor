@@ -14,6 +14,7 @@ const Editor = () => {
   const [bgImage, setBgImage] = useState();
   const [imgText, setImgText] = useState();
   const [imgTextFontFamily, setImgTextFontFamily] = useState("Arial");
+  const [isDownloadImgMode, setDownloadImgMode] = useState(false);
   const stageRef = useRef();
   const rectSize = 400;
 
@@ -25,6 +26,11 @@ const Editor = () => {
     imageObj.src = bgImagePath;
   }, [bgImagePath]);
 
+  useEffect(() => {
+    if (!isDownloadImgMode) return;
+    handleDownloadAsImage();
+  }, [isDownloadImgMode]);
+
   const handleDownloadAsImage = () => {
     const href = stageRef.current.getStage().toDataURL();
     const link = document.createElement('a');
@@ -32,6 +38,7 @@ const Editor = () => {
     link.download = 'wow.png';
     link.href = href;
     link.click();
+    setDownloadImgMode(false);
   };
 
   return (
@@ -63,13 +70,13 @@ const Editor = () => {
               <ImgText
                 text={imgText}
                 fontFamily={imgTextFontFamily}
-                onTextDelete={() => setImgText("")}
+                onTextDelete={!isDownloadImgMode ? (() => setImgText("")) : undefined}
               />
             )}
           </Layer>
         </Stage>
 
-        <button onClick={handleDownloadAsImage}>Download as image</button>
+        <button onClick={() => setDownloadImgMode(true)}>Download as image</button>
       </FlexBox>
 
       <FlexBox column className="editor-column">
