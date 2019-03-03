@@ -2,10 +2,16 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { Text, Group } from "components";
 
-const ImgText = ({ onTextDelete, ...rest }) => {
+const ImgText = ({ deleteIconProps, onTextDelete, ...rest }) => {
   const [isFocused, setFocused] = useState(false);
   const imgTextRef = useRef();
-  const xPadding = 4;
+  const deleteIconPadding = 4;
+
+  const handleSetFocused = (ev) => {
+    if (rest.onClick) rest.onClick(ev);
+    if (!onTextDelete) return;
+    setFocused(!isFocused);
+  }
 
   return (
     <Group draggable>
@@ -14,15 +20,16 @@ const ImgText = ({ onTextDelete, ...rest }) => {
         padding={12}
         ref={imgTextRef}
         {...rest}
-        onClick={() => setFocused(!isFocused)}
+        onClick={handleSetFocused}
       />
       {!isFocused || !onTextDelete ? null : (
         <Text
           text="x"
           fontSize={16}
-          padding={xPadding}
-          absolutePosition={{ x: imgTextRef.current.getTextWidth() + xPadding, y: -xPadding }}
+          padding={deleteIconPadding}
+          absolutePosition={{ x: imgTextRef.current.getTextWidth() + 2* deleteIconPadding, y: -deleteIconPadding }}
           onClick={onTextDelete}
+          {...deleteIconProps}
         />
       )}
     </Group>
@@ -31,6 +38,7 @@ const ImgText = ({ onTextDelete, ...rest }) => {
 
 ImgText.propTypes = {
   ...Text.propTypes,
+  deleteIconProps: PropTypes.object,
   onTextDelete: PropTypes.func,
 };
 
