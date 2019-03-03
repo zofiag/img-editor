@@ -37,8 +37,10 @@ const Editor = () => {
 
     link.download = 'wow.png';
     link.href = href;
+    document.body.appendChild(link);
     link.click();
     setDownloadImgMode(false);
+    document.body.removeChild(link);
   };
 
   return (
