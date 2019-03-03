@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Stage, Layer } from "react-konva";
 
-import { FlexBox, Rect, Text } from "components";
+import { FlexBox, Rect } from "components";
 
 import defaultBgImagePath from "static/images/empty_background.bmp";
 import BgSelector from "./components/BgSelector";
 import TextSelector from "./components/TextSelector";
+import ImgText from "./components/ImgText";
 
 const Editor = () => {
   const [bgImagePath, setBgImagePath] = useState(defaultBgImagePath);
@@ -54,7 +55,13 @@ const Editor = () => {
               fillPatternRepeat="no-repeat"
             />
 
-            {!imgText ? null : <Text draggable text={imgText} fontSize={20} fontFamily={imgTextFontFamily} padding={12} />}
+            {!imgText ? null : (
+              <ImgText
+                text={imgText}
+                fontFamily={imgTextFontFamily}
+                onTextDelete={() => setImgText("")}
+              />
+            )}
           </Layer>
         </Stage>
 

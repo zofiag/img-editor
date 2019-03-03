@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import FontFaceObserver from "fontfaceobserver";
 
@@ -10,6 +10,11 @@ const TextSelector = ({ text = "", textFontFamily, onAdd, onFontFamilyChange }) 
   const [inputText, setInputText] = useState(text);
   const fontFamilies = ["Arial", "Times New Roman", "Open Sans"];
   const fontFamiliesAsync = ["Open Sans"];
+
+  useEffect(() => {
+    if (text === inputText) return;
+    setInputText(text);
+  }, [text]);
 
   const handleFontFamilyChange = async (fontFamily) => {
     const loaded = !fontFamiliesAsync.includes(fontFamily) || await new FontFaceObserver(fontFamily).load();
